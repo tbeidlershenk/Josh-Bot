@@ -1,20 +1,17 @@
 import discord
-import csv
 from discord.ext.commands import Bot
 import os
+import csv
 import pandas
 import random
-
-import phrases
 import dataframes
+import randfuncs
+import record
 
 from keep_alive import keep_alive
 
 bot = Bot(command_prefix = '!')
 count = 0
-mchance = 2
-rchance = 2
-kchance = 20
 repeat = False
 josh_id = 518974960912564225
 josh_ping = '<@!518974960912564225>'
@@ -24,7 +21,7 @@ josh_ping = '<@!518974960912564225>'
 async def on_ready():
   print('We have logged in as {0.user}'.format(bot))
   activity = discord.Activity(name="YOU.", type=3)
-  await bot.change_presence(status=discord.Status.idle, activity=activity)
+  #await bot.change_presence(status=discord.Status.idle, activity=activity)
 
 
 # ON MESSAGE FUNCTION
@@ -32,37 +29,17 @@ async def on_ready():
 @bot.event
 async def on_message(message):
   
-  global count, mchance, rchance, repeat
-
   if message.author == bot.user:
     return
-  elif (count > 10):
-    mchance+=1
-    rchance+=1
-    count = 0
 
-  if (random.randint(0,100) > 100-mchance):
-    await message.channel.send(phrases.phrases[random.randint(0,len(phrases.phrases)-1)])
-    mchance = 2
+  await randfuncs.msg(bot, message)
 
-  for n in range (len(dataframes.triggers)):
-    if dataframes.triggers.iloc[n,0] in message.content.upper():
-      if (random.randint(0,100) > 100-kchance):
-        await message.channel.send(dataframes.triggers.iloc[n,1])
+  await randfuncs.react(bot, message)
+
+  await randfuncs.keyw(bot, message)
+
+  await record.rec(bot, message, repeat)
   
-  if (random.randint(0,100) > 100-rchance):
-    await message.add_reaction('<:acme:925591518419484702>')
-    rchance = 2
-
-  if message.author.id == josh_id:
-    fields=[len(pandas.read_csv('data/history.csv')), message.content, message.created_at, message.author]
-    with open(r'data/history.csv', 'a') as f:
-      writer = csv.writer(f)
-      writer.writerow(fields)
-    if repeat:
-      await message.channel.send(message.content)
-  
-  count+=1
   await bot.process_commands(message)
 
 # BOT COMMANDS
@@ -85,7 +62,7 @@ async def troll (ctx):
   
 @bot.command(name = 'ping')
 async def ping (ctx):
-  await ctx.send(josh_id)
+  await ctx.send(dataframes.pings.iloc[random.randint(0,len(dataframes.pings)),0])
 
 @bot.command(name = 'quote')
 async def quote (ctx):
@@ -94,6 +71,19 @@ async def quote (ctx):
   s = data.iloc[rand,2]
   await ctx.send(data.iloc[rand,1]+'\n**sent on:** ' + s[0:len(s)-7])
 
+@bot.command(name = 'suggest')
+async def suggest (ctx, *arg):
+  if len(arg) == 0:
+    await ctx.send('enter a phrase after !suggest')
+    return
+  sen = ''
+  for word in arg:
+    sen += word + ' '
+  fields=[sen]
+  with open(r'data/suggestions.csv', 'a') as f:
+    writer = csv.writer(f)
+    writer.writerow(fields)
+  
 # SCAN FUNCTION
 @bot.command(name = 'scan')
 async def scan (ctx):
