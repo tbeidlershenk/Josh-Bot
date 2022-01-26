@@ -1,0 +1,5 @@
+command,message
+!h     ,Lists all commands
+!troll ,Repeat Josh's messages
+!ping  ,Ping Josh
+!quote ,Random Josh quote from last 2ish years
