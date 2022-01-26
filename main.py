@@ -21,7 +21,7 @@ josh_ping = '<@!518974960912564225>'
 async def on_ready():
   print('We have logged in as {0.user}'.format(bot))
   activity = discord.Activity(name="YOU.", type=3)
-  #await bot.change_presence(status=discord.Status.idle, activity=activity)
+  await bot.change_presence(status=discord.Status.idle, activity=activity)
 
 
 # ON MESSAGE FUNCTION
@@ -63,6 +63,7 @@ async def troll (ctx):
 @bot.command(name = 'ping')
 async def ping (ctx):
   await ctx.send(dataframes.pings.iloc[random.randint(0,len(dataframes.pings)),0])
+  pass
 
 @bot.command(name = 'quote')
 async def quote (ctx):
