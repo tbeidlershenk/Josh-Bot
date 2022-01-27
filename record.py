@@ -16,3 +16,13 @@ async def rec (Bot, message, repeat):
       writer.writerow(fields)
     if repeat:
       await message.channel.send(message.content)
+
+async def update (Bot, message):
+  scores = pandas.read_csv('data/scores.csv')
+  scores.iloc[scores.loc(str(message.author))[0],2] = int(scores.iloc[scores.loc(str(message.author))[0],2])+1
+  scores.to_csv('data/scores.csv')
+  
+
+    
+    
+
