@@ -32,6 +32,7 @@ async def on_message(message):
   await randfuncs.react(bot, message)
   await randfuncs.keyw(bot, message)
   await record.rec(bot, message, repeat) 
+  await record.gojopoints(message)
   await bot.process_commands(message)
 
 @bot.command(name = 'h')
@@ -48,7 +49,7 @@ async def ping (ctx):
 
 @bot.command(name = 'quote')
 async def quote (ctx):
-  await commands.suggest(bot, ctx)
+  await commands.quote(bot, ctx)
 
 @bot.command(name = 'suggest')
 async def suggest (ctx, *arg):
@@ -58,6 +59,15 @@ async def suggest (ctx, *arg):
 @bot.command(name = 'scan')
 async def scan (ctx):
   await commands.scan(bot, ctx)
-    
+
+@bot.command(name = 'test')
+async def test (ctx):
+  await record.gojopoints(ctx.message)
+  pass
+
+@bot.command(name = 'scores')
+async def scores (ctx):
+  await commands.scores(ctx)
+  
 keep_alive() 
 bot.run(os.environ['token'])

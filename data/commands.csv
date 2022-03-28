@@ -4,3 +4,4 @@ command,message
 !ping         ,Ping Josh
 !quote        ,Random Josh quote no context
 !suggest      ,Suggest a msg (links or images too) 
+!scores       ,Current GojoScores

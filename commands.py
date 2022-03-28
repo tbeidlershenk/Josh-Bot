@@ -47,6 +47,18 @@ async def suggest (Bot, ctx, *arg):
     writer = csv.writer(f)
     writer.writerow(fields)
 
+async def scores (ctx):
+  print(dataframes.points)
+  points = dataframes.points.sort_values(by='Score', ascending=False, inplace=True, kind='quicksort', na_position='last')
+  print(dataframes.points)
+
+  s = '```Scores\n'
+  for n in range(5):
+    s += (str(dataframes.points.iloc[n,1]) + ': ' + str(dataframes.points.iloc[n,3]) + '\n')
+  
+  s += '```'
+  await ctx.send(s)
+    
 async def scan (Bot, ctx):
   print(ctx.author.id)
   if (ctx.author.id == 572796216589418528 and False): #cant run
@@ -65,3 +77,4 @@ async def scan (Bot, ctx):
           break
     print('done')
     data.to_csv('history.csv')
+
