@@ -5,3 +5,4 @@ command,message
 !quote        ,Random Josh quote no context
 !suggest      ,Suggest a msg (links or images too) 
 !scores       ,Current GojoScores
+!reply        ,Replies to a recent message

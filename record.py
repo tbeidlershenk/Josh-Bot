@@ -25,24 +25,40 @@ async def rec (Bot, message, repeat):
 async def gojopoints (message):
   print(dataframes.times.iloc[len(dataframes.times)-1,1])
   now = datetime.now();
+  c = False
   diff = now -datetime.strptime(dataframes.times.iloc[len(dataframes.times)-1,1],'%Y-%m-%d %H:%M:%S.%f')
-  slice = int(str(diff)[0:1])
-  if (len(str(diff)) == 15):
+  print(diff)
+  leng = len(str(diff))
+  if (leng == 14):
+    slice = int(str(diff)[0:1])
+  if (leng == 15):
     slice = int(str(diff)[0:2])
+  elif ('day' in str(diff)):
+    stri = str(diff).split(',')[1][1:leng]
+    print(stri)
+    if (len(stri) == 14):
+      slice = int(stri[0:1])
+    else:
+      slice = int(stri[0:2])
+    c = True
+    
 
-  b = 'new pfp' in message.content
+
+  b = 'NEW PFP' in message.content.upper()
   print(b)
-  if b and slice > 4:
+  if (b and slice > 4) or (b and c):
     print(True)
     fields=[len(dataframes.times)-1,now]
     with open(r'data/time.csv', 'a') as f:
       writer = csv.writer(f)
       writer.writerow(fields)
       dataframes.times = pandas.read_csv('data/time.csv')
+    length = len(dataframes.points.columns)-1
     for n in range(len(dataframes.points)-1):
-      if dataframes.points.iloc[n,1] == str(message.author):
-        dataframes.points.iloc[n,2] = int(dataframes.points.iloc[n,2])+1
-        dataframes.points.to_csv('data/gojoscores.csv')
+      if dataframes.points.iloc[n,length-1] == str(message.author):
+        dataframes.points.iloc[n,length] = int(dataframes.points.iloc[n,length])+1
+        dataframes.points.to_csv('data/gojoscores.csv', index = False)
+        
         print('here')
 
 
