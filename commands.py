@@ -94,6 +94,25 @@ async def dist (ctx):
               str(dataframes.distr.iloc[x, 1]) + ' occurrences\n')
     s += '```'
     await ctx.send(s)
+
+async def freq (ctx, word):
+  dist = dataframes.distr
+  sent = False
+  for x in range (len(dist)):
+    if str(dist.iloc[x,0]) == word.lower():
+      await ctx.send('Josh has said \"' + word + '\" ' + str(dist.iloc[x,1]) + ' times')
+      sent = True
+  if not sent:
+    await ctx.send('Josh has said \"' + word + '\" ' +' 0 times')
+
+
+
+
+
+
+
+
+  
 # deprecated
 async def scan(Bot, ctx):
     print(ctx.author.id)

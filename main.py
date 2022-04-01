@@ -93,8 +93,8 @@ async def distribution(ctx):
     await commands.dist(ctx)
 
 @bot.command(name='freq')
-async def freq(ctx):
-    await commands.dist(ctx)
+async def freq(ctx, arg):
+    await commands.freq(ctx, arg)
     
 
 @bot.command(name='scores')
