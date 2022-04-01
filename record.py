@@ -8,6 +8,7 @@ import dataframes
 from datetime import datetime
 
 josh_id = 518974960912564225
+me = 572796216589418528
 lastpfp = datetime.now()
 #time = dataframes.times.iloc[len-1,1]
 #lastpfp = datetime.strptime(time, 'YYYY-MM-DDTHH:MM:SS.mmmmmm')
@@ -20,20 +21,17 @@ async def rec (Bot, message, repeat):
       writer = csv.writer(f)
       writer.writerow(fields)
     list = message.content.split(' ')
-    dist = dataframes.distr
     for word in list:
         new = True
-        for y in range (len(dist)-1):
-            if (str(dist.iloc[y,0]) == word.lower()):
-                dist.iloc[y,1] = int(dist.iloc[y,1])+1
+        for y in range (len(dataframes.distr)):
+            if (str(dataframes.distr.iloc[y,0]) == word.lower()):
+                dataframes.distr.iloc[y,1] = int(dataframes.distr.iloc[y,1])+1
                 new = False
                 break
         if new:
-            df = pandas.DataFrame({'word' : [word.lower()],
-                                   'frequency' : ['1']
-                                    })
-            dist = pandas.concat([dist, df], ignore_index = True, axis = 0)
-    dist.to_csv('data/distribution.csv', index = False)
+            df = pandas.DataFrame({'word' : [word.lower()],'frequency' : ['1']})
+            dataframes.distr =   pandas.concat([dataframes.distr, df], ignore_index = True, axis = 0)
+    dataframes.distr.to_csv('data/distribution.csv', index = False)
     if repeat:
       await message.channel.send(message.content)
 
