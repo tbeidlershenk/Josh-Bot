@@ -7,3 +7,5 @@ emotes = pandas.read_csv('data/emotes.csv')
 pings = pandas.read_csv('data/pings.csv')
 times = pandas.read_csv('data/time.csv')
 points = pandas.read_csv('data/gojoscores.csv')
+distr = pandas.read_csv('data/distribution.csv')
+

@@ -54,16 +54,24 @@ async def suggest(Bot, ctx, *arg):
         writer = csv.writer(f)
         writer.writerow(fields)
 
+
 async def reply(ctx):
     count = 0
-    num = random.randint(0,500)
+    num = random.randint(0, 1000)
     async for msg in ctx.channel.history(limit=5000):
-        print(count)
-        if count == num:
-            id = str(msg.author.id)
-            await msg.reply('<@'+id+'>')
-            return
-        count+=1
+        if count > num:
+            if (len(msg.content.split(' ')) > 10):
+                list = msg.content.split(' ')
+                s = ''
+                for x in range (len(list)):
+                    last = len(list)-x-1
+                    ind = random.randint(0, last)
+                    s += list[ind] + ' '
+                    list[ind] = list[last]
+                await msg.reply(s, mention_author = False)
+                return
+        count += 1
+
 
 async def scores(ctx):
     print(dataframes.points)
@@ -72,17 +80,21 @@ async def scores(ctx):
                                            inplace=True,
                                            kind='quicksort',
                                            na_position='last')
-    print(dataframes.points)
-
     s = '```Scores\n'
     for n in range(5):
         s += (str(dataframes.points.iloc[n, 0]) + ': ' +
               str(dataframes.points.iloc[n, 2]) + '\n')
-
     s += '```'
     await ctx.send(s)
 
-
+async def dist (ctx):
+    s = '```Scores\n'
+    for x in range (10):
+        s += (str(dataframes.distr.iloc[x, 0]) + ': ' +
+              str(dataframes.distr.iloc[x, 1]) + ' occurrences\n')
+    s += '```'
+    await ctx.send(s)
+# deprecated
 async def scan(Bot, ctx):
     print(ctx.author.id)
     if (ctx.author.id == 572796216589418528 and False):  #cant run

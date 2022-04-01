@@ -1,5 +1,8 @@
-import discord
 from discord.ext.commands import Bot
+from datetime import datetime
+from keep_alive import keep_alive
+
+import discord
 import os
 import csv
 import pandas
@@ -8,17 +11,14 @@ import dataframes
 import randfuncs
 import record
 import commands
-from datetime import datetime
-import threading
 import asyncio
-
-from keep_alive import keep_alive
 
 bot = Bot(command_prefix='!')
 count = 0
 repeat = False
 josh_id = 518974960912564225
 josh_ping = '<@!518974960912564225>'
+me = 572796216589418528
 
 
 @bot.event
@@ -30,11 +30,11 @@ async def on_ready():
 
 async def background():
     await bot.wait_until_ready()
-    channel = bot.get_channel(935366855827271693)
+    channel = bot.get_channel(572795502706556935)
     while not bot.is_closed():
         now = datetime.now()
         time = now.strftime("%H:%M:%S")
-        print("Current Time =", time)
+        #print("Current Time =", time)
         if (time == '04:00:00'):
             await channel.send('https://tenor.com/view/sweet-dreams-good-night-flowers-neon-gif-22768044')
             await channel.send('Goodnight ' + '<@518974960912564225>')
@@ -88,14 +88,14 @@ async def suggest(ctx, *arg):
 async def scan(ctx):
     await commands.scan(bot, ctx)
 
+@bot.command(name='dist')
+async def distribution(ctx):
+    await commands.dist(ctx)
 
-@bot.command(name='test')
-async def test(ctx):
-    for member in ctx.guild:
-        print(member.id)
-
-    pass
-
+@bot.command(name='freq')
+async def freq(ctx):
+    await commands.dist(ctx)
+    
 
 @bot.command(name='scores')
 async def scores(ctx):

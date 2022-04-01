@@ -19,6 +19,21 @@ async def rec (Bot, message, repeat):
     with open(r'data/history.csv', 'a') as f:
       writer = csv.writer(f)
       writer.writerow(fields)
+    list = message.content.split(' ')
+    dist = dataframes.distr
+    for word in list:
+        new = True
+        for y in range (len(dist)-1):
+            if (str(dist.iloc[y,0]) == word.lower()):
+                dist.iloc[y,1] = int(dist.iloc[y,1])+1
+                new = False
+                break
+        if new:
+            df = pandas.DataFrame({'word' : [word.lower()],
+                                   'frequency' : ['1']
+                                    })
+            dist = pandas.concat([dist, df], ignore_index = True, axis = 0)
+    dist.to_csv('data/distribution.csv', index = False)
     if repeat:
       await message.channel.send(message.content)
 
@@ -73,7 +88,7 @@ async def update (Bot, message):
   scores.iloc[scores.loc(str(message.author))[0],2] = int(scores.iloc[scores.loc(str(message.author))[0],2])+1
   scores.to_csv('data/scores.csv')
   
-
+  
     
     
 
