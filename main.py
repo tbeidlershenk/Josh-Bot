@@ -35,6 +35,7 @@ async def background():
         now = datetime.now()
         time = now.strftime("%H:%M:%S")
         #print("Current Time =", time)
+        
         if (time == '04:00:00'):
             await channel.send('https://tenor.com/view/sweet-dreams-good-night-flowers-neon-gif-22768044')
             await channel.send('Goodnight ' + '<@518974960912564225>')
@@ -53,6 +54,11 @@ async def on_message(message):
     await record.rec(bot, message, repeat)
     await record.gojopoints(message)
     await bot.process_commands(message)
+    chance = 2
+    channel = bot.get_channel(572795502706556935)
+    if (random.randint(0, 100) > 100-chance):
+        async with channel.typing():
+            await asyncio.sleep(10)
 
 
 @bot.command(name='h')
