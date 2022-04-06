@@ -1,8 +1,9 @@
 command,message
-!h            ,Lists all commands
-!troll        ,Repeat Josh's messages
-!ping         ,Ping Josh
-!quote        ,Random Josh quote no context
-!suggest      ,Suggest a msg (links or images too) 
-!scores       ,Current GojoScores
-!reply        ,Replies to a recent message
+!h               ,Lists all commands
+!ping            ,Ping Josh
+!quote           ,Random Josh quote no context
+!suggest (word)  ,Suggest a msg (links or images too) 
+!scores          ,Current GojoScores
+!reply           ,Replies to a recent message
+!dist            ,Shows top Josh words
+!freq (word)     ,Sends frequency of word
