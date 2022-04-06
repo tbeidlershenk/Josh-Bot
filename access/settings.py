@@ -3,7 +3,7 @@
 # (work in progress transferring to here)
 
 # client token
-token = 'OTM1MzY3Nzk3Mzk4MTc5OTQw.Ye9nJQ.eRQN1OtwgYeduAR37hI1gNXMLkI'
+token = 'hidden'
 
 # general vars
 josh_id = 518974960912564225
