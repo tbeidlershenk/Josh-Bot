@@ -90,6 +90,5 @@ async def scan(ctx):
 
 # ping the repl
 keep_alive()
-bot.run('OTM1MzY3Nzk3Mzk4MTc5OTQw.Ye9nJQ.-pbGgoNJEhIBbnTWnbiihnJkIqw')
-#bot.run(os.environ['token'])
+bot.run(os.environ['TOKEN'])
 
